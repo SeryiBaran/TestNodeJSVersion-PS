@@ -4,7 +4,7 @@ Import-Module Pansies
  .Synopsis
   Checks new NodeJS versions.
 
- .Parameter CheckLTS
+ .Parameter CheckOnlyLTS
   Check only LTS or all versions.
 
  .Example
@@ -18,21 +18,21 @@ function Test-NodeJSVersion {
   param(
     [alias("lts")]
     [boolean]
-    $CheckLTS = $True
+    $CheckOnlyLTS = $True
   )
   $NodeJSVersions = Invoke-RestMethod -Uri "https://nodejs.org/dist/index.json"
-  $LatestVersion = ($CheckLTS ? $NodeJSVersions.Where({ $_.lts }) : $NodeJSVersions)[0].version
+  $LatestVersion = ($CheckOnlyLTS ? $NodeJSVersions.Where({ $_.lts }) : $NodeJSVersions)[0].version
   $InstalledVersion = $(node -v)
 
   if ($NodeJSVersions -and $LatestVersion -and $InstalledVersion) {
     if ($InstalledVersion -ne $LatestVersion) {
       Write-Host -ForegroundColor green "Time to update Nodejs!"
-      Write-Host -ForegroundColor blue "Current installed$($CheckLTS ? ' LTS ' : ' ')version: $(New-Text $InstalledVersion -ForegroundColor red)"
-      Write-Host -ForegroundColor blue "New$($CheckLTS ? ' LTS ' : ' ')version: $(New-Text $LatestVersion -ForegroundColor green)"
+      Write-Host -ForegroundColor blue "Current installed$($CheckOnlyLTS ? ' LTS ' : ' ')version: $(New-Text $InstalledVersion -ForegroundColor red)"
+      Write-Host -ForegroundColor blue "New$($CheckOnlyLTS ? ' LTS ' : ' ')version: $(New-Text $LatestVersion -ForegroundColor green)"
       Write-Host -ForegroundColor blue "Info: You can use Volta, NVM, NVM Windows, n, asdf, etc. to update NodeJS."
     }
     else {
-      Write-Host "You use latest$($CheckLTS ? ' LTS ' : ' ')NodeJS version!" -ForegroundColor green
+      Write-Host "You use latest$($CheckOnlyLTS ? ' LTS ' : ' ')NodeJS version!" -ForegroundColor green
     }
   }
 }

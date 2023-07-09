@@ -29,14 +29,14 @@ SYNOPSIS
 
 
 SYNTAX
-    Test-NodeJSVersion [[-CheckLTS] <Boolean>] [<CommonParameters>]
+    Test-NodeJSVersion [[-CheckOnlyLTS] <Boolean>] [<CommonParameters>]
 
 
 DESCRIPTION
 
 
 PARAMETERS
-    -CheckLTS <Boolean>
+    -CheckOnlyLTS <Boolean>
         Check only LTS or all versions.
 
         Required?                    false
