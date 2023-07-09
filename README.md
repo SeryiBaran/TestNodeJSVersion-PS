@@ -7,7 +7,7 @@ Tiny PowerShell module for check for new NodeJS versions.
 ## Installing
 
 ```powershell
-Install-Module TestNodeJSVersion
+Install-Module TestNodeJSVersion -Scope CurrentUser -AllowClobber
 ```
 
 ## Usage
