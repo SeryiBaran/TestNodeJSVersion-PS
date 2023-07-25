@@ -1,13 +1,11 @@
-# TestNodeJSVersion-PS
+# CopySSHKey-PS
 
-![Screenshot of work](.github/screenshot.png)
-
-Tiny PowerShell module for check for new NodeJS versions.
+Tiny PowerShell module for copy public SSH key to remote server (`ssh-copy-id` analog for Windows).
 
 ## Installing
 
 ```powershell
-Install-Module TestNodeJSVersion -Scope CurrentUser -AllowClobber
+Install-Module CopySSHKey -Scope CurrentUser -AllowClobber
 ```
 
 ## Usage
@@ -15,33 +13,51 @@ Install-Module TestNodeJSVersion -Scope CurrentUser -AllowClobber
 > Don't forget to import module =)
 >
 > ```powershell
-> Import-Module TestNodeJSVersion
+> Import-Module CopySSHKey
 > ```
 
-### `Test-NodeJSVersion`
+### `Copy-SSHKey`
 
 ```
 NAME
-    Test-NodeJSVersion
+    Copy-SSHKey
 
 SYNOPSIS
     Checks new NodeJS versions.
 
 
 SYNTAX
-    Test-NodeJSVersion [[-CheckOnlyLTS] <Boolean>] [<CommonParameters>]
+    Copy-SSHKey [-RemoteHost] <String> [[-KeyFile] <String>] [[-RemotePort] <Int32>] [<CommonParameters>]
 
 
 DESCRIPTION
 
 
 PARAMETERS
-    -CheckOnlyLTS <Boolean>
-        Check only LTS or all versions.
+    -RemoteHost <String>
+        Remote host and user
+
+        Required?                    true
+        Position?                    1
+        Default value
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+
+    -KeyFile <String>
+        Public key local path
 
         Required?                    false
-        Position?                    1
-        Default value                True
+        Position?                    2
+        Default value                "$HOME/.ssh/id_rsa.pub"
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+
+    -RemotePort <Int32>
+        Remote SSH port
+
+        Required?                    false
+        Position?                    3
+        Default value                22
         Accept pipeline input?       false
         Accept wildcard characters?  false
 
@@ -57,16 +73,7 @@ OUTPUTS
 
     -------------------------- EXAMPLE 1 --------------------------
 
-    PS > Test-NodeJSVersion -lts 1 # Checks only LTS
-
-
-
-
-
-
-    -------------------------- EXAMPLE 2 --------------------------
-
-    PS > Test-NodeJSVersion -lts 0 # Checks all versions
+    PS > Copy-SSHKey user@192.168.0.92
 
 
 
